@@ -1,0 +1,27 @@
+public class HTTPCalloutExample {
+    public static void makeHTTPCallout() {
+     
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('https://postman-echo.com/get?foo1=bar1&foo2=bar2');
+        req.setMethod('GET');
+
+        Http http = new Http();
+        HttpResponse res;
+
+        // Send the request
+        try {
+            res = http.send(req);
+        } catch (Exception e) {
+            System.debug('HTTP request failed with exception: ' + e.getMessage());
+            return;
+        }
+
+        // Check the response and print the result
+        if (res.getStatusCode() == 200) {
+            System.debug('HTTP Request was successful');
+            System.debug('Response Body: ' + res.getBody());
+        } else {
+            System.debug('HTTP Request failed with status code: ' + res.getStatusCode());
+        }
+    }
+}
